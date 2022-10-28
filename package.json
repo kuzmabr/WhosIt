@@ -1,0 +1,37 @@
+{
+  "name": "whosit",
+  "version": "1.0.0",
+  "description": "The rolodex for now.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js node server/index.js",
+    "build": "webpack --mode production",
+    "dev": "webpack --mode development && node server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brian Kuzma",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.1.3",
+    "body": "^5.1.0",
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
+    "parser": "^0.1.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@babel/preset-env": "^7.19.4",
+    "@babel/preset-react": "^7.18.6",
+    "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
+    "html-webpack-plugin": "^5.5.0",
+    "node-sass": "^7.0.3",
+    "nodemon": "^2.0.20",
+    "sass-loader": "^13.1.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
+}
