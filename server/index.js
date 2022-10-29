@@ -7,10 +7,17 @@ const port = 3000;
 app.use(express.json());
 const axios = require("axios");
 
+const {save} = require('../database/index.js');
+const {contactsGetter} = require('../database/index.js');
+
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/WhosIt');
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 
 const DIST_DIR = path.join(__dirname, '../dist');
-// const HTML_FILE = path.join(DIST_DIR, 'index.html');
 
 app.use(express.static(DIST_DIR));
 
@@ -32,9 +39,25 @@ app.post('/',function (req, res) {
       res.send(response.data.success);
     }
   }).catch(function (error) {
+    res.send(error);
     console.error(error);
   })
 });
+
+
+app.post('/contactform',function (req, res) {
+  console.log('this is the req', req.body.contactInfo);
+  save(req.body.contactInfo)
+  .then(()=>{contactsGetter})
+  .then((data)=> console.log('this is the db data: ', data))
+
+});
+
+app.get('/contacts', (req, res) => {
+  console.log('contacts are requested')
+  contactsGetter()
+    .then((contacts) => {res.send(contacts)});
+})
 
 
 app.listen(port, () => {

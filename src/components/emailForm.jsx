@@ -32,6 +32,7 @@ export class EmailForm extends React.Component {
     .then(() => {this.setState({show:!this.state.show})
     })
     .catch(function (error) {
+      alert('invalid email, try again!')
       console.log(error);
     });
     event.preventDefault();

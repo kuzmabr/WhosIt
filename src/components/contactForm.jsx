@@ -1,40 +1,43 @@
-import React, { useState } from "react";
+import React,  { useState } from "react";
+import axios from 'axios';
 
-const initialValues = {
-  company: "",
-  position: "",
-  link: "",
-  date: "",
-  note: "",
-};
+export function ContactForm() {
+  const [contactInfo, setContactInfo] = useState({ email: "", impression: 0, family: "", likes: "", dislikes: "", professional: ""});
 
-export default function Form() {
-  const [values, setValues] = useState(initialValues);
+  const handleChange = (event) => {
+    setContactInfo({ ...contactInfo, [event.target.name]: event.target.value});
+  };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setValues({
-      ...values,
-      [name]: value,
+  const handleContactSubmit= (event) => {
+    console.log('this is the contact info', contactInfo)
+    axios.post('/contactform', {
+      contactInfo
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .then(() => {
+      axios.get('/');
+
+    })
+    .catch(function (error) {
+      console.log(error);
     });
   };
 
   return (
-        <form>
-          <input
-            value={values.company}
-            onChange={handleInputChange}
-            name="company"
-            label="Company"
-          />
-          <input
-            value={values.position}
-            onChange={handleInputChange}
-            name="position"
-            label="Job Title"
-          />
-           // ... Rest of the input fields
-          <button type="submit"> Submit </button>
-        </form>
+    <form onSubmit={handleContactSubmit}>
+      <label htmlFor="email">Email: </label>
+      <input type="email" name="email" onChange={handleChange} />
+      <label htmlFor="impression">Impression: </label>
+      <input type="number" name="impression" onChange={handleChange} />
+      <label htmlFor="family">Family: </label>
+      <input type="text" name="family" onChange={handleChange} />
+      <label htmlFor="likes">Likes: </label>
+      <input type="text" name="dislikes" onChange={handleChange} />
+      <label htmlFor="proffesional">Professional: </label>
+      <input type="text" name="professional" onChange={handleChange} />
+      <button>Submit</button>
+    </form>
   );
 }

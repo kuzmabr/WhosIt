@@ -4,7 +4,7 @@
   "description": "The rolodex for now.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js node server/index.js",
+    "start": "nodemon server/index.js",
     "build": "webpack --mode production",
     "dev": "webpack --mode development && node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
